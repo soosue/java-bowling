@@ -46,14 +46,13 @@ public class Answer extends AbstractEntity {
         this.contents = contents;
     }
 
-    public void checkOwnerForDelete(User user) throws CannotDeleteException {
-        if (!isOwner(user)) {
-            throw new CannotDeleteException(CANNOT_DELETE_MESSAGE);
-        }
-    }
-
     public void delete() {
         deleted = true;
+    }
+
+    public Answer setDeleted(boolean deleted) {
+        this.deleted = deleted;
+        return this;
     }
 
     public boolean isDeleted() {
@@ -64,8 +63,18 @@ public class Answer extends AbstractEntity {
         return this.writer.equals(writer);
     }
 
+    public void checkOwnerForDelete(User user) throws CannotDeleteException {
+        if (!isOwner(user)) {
+            throw new CannotDeleteException(CANNOT_DELETE_MESSAGE);
+        }
+    }
+
     public User getWriter() {
         return writer;
+    }
+
+    public String getContents() {
+        return contents;
     }
 
     public void toQuestion(Question question) {
