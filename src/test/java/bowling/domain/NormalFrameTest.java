@@ -13,7 +13,7 @@ public class NormalFrameTest {
 
     @Test
     void 볼링핀_쓰러뜨리기_프레임종료확인_스트라이크() {
-        Frame frame = new NormalFrame();
+        Frame frame = new NormalFrame(1);
 
         frame.bowl(10);
         assertThat(frame.isEnd()).isTrue();
@@ -22,7 +22,7 @@ public class NormalFrameTest {
     @ParameterizedTest
     @MethodSource(value = "provideKnockCount")
     void 볼링핀_쓰러뜨리기_프레임종료확인_스트라이크_외의_상황(int first, int second) {
-        Frame frame = new NormalFrame();
+        Frame frame = new NormalFrame(1);
 
         frame.bowl(first);
         frame.bowl(second);
@@ -40,7 +40,7 @@ public class NormalFrameTest {
 
     @Test
     void 볼링핀_쓰러뜨리기_스트라이크_아닌데_한번만_쓰러뜨림_프레임종료안됨() {
-        Frame frame = new NormalFrame();
+        Frame frame = new NormalFrame(1);
 
         frame.bowl(9);
         assertThat(frame.isEnd()).isFalse();

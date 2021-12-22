@@ -1,12 +1,15 @@
 package bowling.domain;
 
 public class NormalFrame implements Frame {
+    private final FrameNumber frameNumber;
     private final Pin pin;
 
-    public NormalFrame() {
-        this(new Pin());
+    public NormalFrame(int frameNumber) {
+        this(new FrameNumber(frameNumber), new Pin());
     }
-    public NormalFrame(Pin pin) {
+
+    public NormalFrame(FrameNumber frameNumber, Pin pin) {
+        this.frameNumber = frameNumber;
         this.pin = pin;
     }
 
@@ -17,7 +20,6 @@ public class NormalFrame implements Frame {
 
     @Override
     public boolean isEnd() {
-
         return pin.isBowlFinish();
     }
 }
