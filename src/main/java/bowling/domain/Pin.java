@@ -11,4 +11,8 @@ public class Pin {
         remain = remain - count;
         return State.findState(bowlCount, count, remain);
     }
+
+    public boolean isBowlFinish() {
+        return remain == 0 || bowlCount == 2;
+    }
 }
