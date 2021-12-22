@@ -1,18 +1,19 @@
 package bowling.domain;
 
 public class Pin {
+    private static final PinCount PIN_COUNT = new PinCount(10);
 
-    private static final int PIN_COUNT = 10;
     private int bowlCount = 0;
-    private int remain = PIN_COUNT;
+    private PinCount remain = PIN_COUNT;
 
     public State knockOut(int count) {
+        PinCount knockOutCount = new PinCount(count);
         bowlCount++;
-        remain = remain - count;
-        return State.findState(bowlCount, count, remain);
+        remain = remain.count(knockOutCount);
+        return State.findState(bowlCount, knockOutCount, remain);
     }
 
     public boolean isBowlFinish() {
-        return remain == 0 || bowlCount == 2;
+        return remain.isZero() || bowlCount == 2;
     }
 }
