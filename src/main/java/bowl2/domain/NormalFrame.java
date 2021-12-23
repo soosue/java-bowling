@@ -1,10 +1,8 @@
 package bowl2.domain;
 
 public class NormalFrame implements Frame {
-    private static final FrameRoundNumber BEFORE_FINAL_FRAME_NUMBER = new FrameRoundNumber(9);
-
     private final FrameRoundNumber roundNumber;
-    private final BowlCounts bowlCounts = new BowlCounts();
+    private final KnockedPinCounts knockedPinCounts = new NormalKnockedPinCounts();
 
     private NormalFrame(int number) {
         this(new FrameRoundNumber(number));
@@ -30,19 +28,19 @@ public class NormalFrame implements Frame {
         return new FinalFrame();
     }
 
-    public boolean isNotEnd() {
-        return true;
-    }
-
     public void bowl(int knockedOutCount) {
-
+        knockedPinCounts.knockOut(knockedOutCount);
     }
 
     public boolean isEnd() {
-        return false;
+        return knockedPinCounts.isBowlFinish();
     }
 
     public boolean isBeforeFinalFrame() {
-        return roundNumber.equals(BEFORE_FINAL_FRAME_NUMBER);
+        return roundNumber.equals(FrameRoundNumber.BEFORE_FINAL_FRAME_NUMBER);
+    }
+
+    public KnockedPinCounts getKnockedPinCounts() {
+        return knockedPinCounts;
     }
 }

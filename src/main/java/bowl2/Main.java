@@ -1,7 +1,6 @@
 package bowl2;
 
-import bowl2.domain.BowlingGame;
-import bowl2.domain.BowlingGames;
+import bowl2.domain.Player;
 import bowl2.domain.Players;
 import bowl2.view.InputView;
 import bowl2.view.OutputView;
@@ -16,27 +15,23 @@ public class Main {
         Players players = new Players(playersName);
         OutputView.printBowlingBoard(players);
 
-        BowlingGames bowlingGames = new BowlingGames(players);
-
-        while (bowlingGames.isNotEnd()) {
-            playBowlingGames(bowlingGames);
-        }
-
-
-
-    }
-
-    private static void playBowlingGames(BowlingGames bowlingGames) {
-        for (BowlingGame bowlingGame : bowlingGames.values()) {
-            playBowlingGame(bowlingGame);
+        while (!players.isEndGame()) {
+            playBowlingGames(players);
         }
     }
 
-    private static void playBowlingGame(BowlingGame bowlingGame) {
-        bowlingGame.prepareFrame();
-        while (bowlingGame.isNotCurrentFrameEnd()) {
-            int knockedOutCount = InputView.readKnockedOutCountOf(bowlingGame.playerName());
-            bowlingGame.bowl(knockedOutCount);
+    private static void playBowlingGames(Players players) {
+        for (Player player : players.value()) {
+            playBowlingGameAndPrintScore(players, player);
+        }
+    }
+
+    private static void playBowlingGameAndPrintScore(Players players, Player player) {
+        player.prepareFrame();
+        while (player.isNotCurrentFrameEnd()) {
+            int knockedOutCount = InputView.readKnockedOutCountOf(player.name());
+            player.bowl(knockedOutCount);
+            OutputView.printBowlingBoard(players);
         }
     }
 }

@@ -16,4 +16,11 @@ public class Players {
     public List<Player> value() {
         return Collections.unmodifiableList(values);
     }
+
+    public boolean isEndGame() {
+        return !values.stream()
+                .filter(player -> !player.isEndGame())
+                .findAny()
+                .isPresent();
+    }
 }

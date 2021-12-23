@@ -1,16 +1,12 @@
 package bowl2.domain;
 
 public class FinalFrame implements Frame {
-    private final BowlCounts bowlCounts = new BowlCounts();
+    public static final String FINAL_FRAME_MESSAGE = "마지막 10프레임입니다.";
+    private final KnockedPinCounts knockedPinCounts = new FinalKnockedPinCounts();
 
     @Override
     public Frame next() {
-        return null;
-    }
-
-    @Override
-    public boolean isNotEnd() {
-        return false;
+        throw new IllegalArgumentException(FINAL_FRAME_MESSAGE);
     }
 
     @Override
@@ -26,5 +22,10 @@ public class FinalFrame implements Frame {
     @Override
     public boolean isBeforeFinalFrame() {
         return false;
+    }
+
+    @Override
+    public KnockedPinCounts getKnockedPinCounts() {
+        return knockedPinCounts;
     }
 }

@@ -1,6 +1,7 @@
 package bowl2.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Frames {
@@ -15,15 +16,7 @@ public class Frames {
     }
 
     public void bowl(int knockedOutCount) {
-        Frame currentFrame = findCurrentFrame();
-
-        if (currentFrame.isNotEnd()) {
-            currentFrame.bowl(knockedOutCount);
-        }
-    }
-
-    private Frame findCurrentFrame() {
-        return values.get(values.size() - 1);
+        findCurrentFrame().bowl(knockedOutCount);
     }
 
     public void prepareFrame() {
@@ -31,10 +24,13 @@ public class Frames {
             values.add(NormalFrame.ofFirst());
         }
 
-        Frame currentFrame = findCurrentFrame();
-        if (currentFrame.isEnd()) {
+        if (findCurrentFrame().isEnd()) {
             nextFrame();
         }
+    }
+
+    private Frame findCurrentFrame() {
+        return values.get(values.size() - 1);
     }
 
     private void nextFrame() {
@@ -50,7 +46,10 @@ public class Frames {
     }
 
     public boolean isNotCurrentFrameEnd() {
-        Frame currentFrame = findCurrentFrame();
-        return currentFrame.isEnd();
+        return !findCurrentFrame().isEnd();
+    }
+
+    public List<Frame> values() {
+        return Collections.unmodifiableList(values);
     }
 }

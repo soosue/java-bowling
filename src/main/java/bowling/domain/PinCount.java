@@ -19,12 +19,20 @@ public class PinCount {
         return new PinCount(value - knockOutCount.value);
     }
 
+    public PinCount sum(PinCount knockOutCount) {
+        return new PinCount(value + knockOutCount.value);
+    }
+
     public boolean isZero() {
         return value == MIN_VALUE;
     }
 
     public boolean isBiggerThanZero() {
         return value > MIN_VALUE;
+    }
+
+    public int value() {
+        return value;
     }
 
     @Override
