@@ -22,6 +22,9 @@ public class OutputView {
     private static final String EMPTY = "";
     private static final StringBuilder sb = new StringBuilder();
 
+    private static final int ZERO = 0;
+    private static final int TEN = 10;
+
     private OutputView() {}
 
     public static void printBowlingBoard(Players players) {
@@ -39,7 +42,7 @@ public class OutputView {
     private static void printScoreMark(Player player) {
         clearStringBuilder();
         sb.append(String.format(SCORE_BOARD_NAME_TEMPLATE, player.name()));
-        sb.append(IntStream.range(0, 10)
+        sb.append(IntStream.range(ZERO, TEN)
                 .mapToObj(index -> String.format(SCORE_BOARD_MARK_TEMPLATE, scoreMark(index, player)))
                 .collect(Collectors.joining()));
 
@@ -76,10 +79,10 @@ public class OutputView {
     }
 
     private static String toMark(int knockOutCount) {
-        if (knockOutCount == 10) {
+        if (knockOutCount == TEN) {
             return STRIKE_MARK;
         }
-        if (knockOutCount == 0) {
+        if (knockOutCount == ZERO) {
             return GUTTER_MARK;
         }
         return String.valueOf(knockOutCount);
@@ -90,6 +93,6 @@ public class OutputView {
     }
 
     private static void clearStringBuilder() {
-        sb.setLength(0);
+        sb.setLength(ZERO);
     }
 }

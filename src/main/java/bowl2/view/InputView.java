@@ -11,6 +11,9 @@ public class InputView {
     private static final String PLAYER_TURN_MESSAGE = "%s's turn : ";
     private static final Scanner scanner = new Scanner(System.in);
 
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+
     private InputView() {}
 
     public static int readPlayersCount() {
@@ -19,8 +22,8 @@ public class InputView {
     }
 
     public static List<String> readPlayersName(int playersCount) {
-        return IntStream.range(0, playersCount)
-                .mapToObj(index -> readPlayerName(index + 1))
+        return IntStream.range(ZERO, playersCount)
+                .mapToObj(index -> readPlayerName(index + ONE))
                 .collect(Collectors.toList());
     }
 

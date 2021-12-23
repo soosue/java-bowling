@@ -1,5 +1,7 @@
 package bowl2.domain;
 
+import bowl2.annotations.ForUI;
+
 public interface Frame {
     Frame next();
 
@@ -11,5 +13,6 @@ public interface Frame {
 
     boolean isFinalFrame();
 
+    @ForUI
     KnockedPinCounts getKnockedPinCounts();
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NormalKnockedPinCounts extends AbstractKnockedPinCounts {
+    public static final String NO_BONUS_MESSAGE = "일반 프레임은 bonus가 없습니다.";
+
     private static final int MAX_SIZE = 2;
 
     public NormalKnockedPinCounts() {
@@ -32,6 +34,6 @@ public class NormalKnockedPinCounts extends AbstractKnockedPinCounts {
 
     @Override
     public boolean isBonusEnd() {
-        throw new IllegalArgumentException("일반 프레임은 bonus가 없습니다.");
+        throw new IllegalArgumentException(NO_BONUS_MESSAGE);
     }
 }

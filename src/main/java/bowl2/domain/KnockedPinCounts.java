@@ -1,10 +1,10 @@
 package bowl2.domain;
 
+import bowl2.annotations.ForUI;
+
 import java.util.List;
 
 public interface KnockedPinCounts {
-    int INDEX_ZERO = 0;
-
     void knockOut(int knockedOutCount);
 
     boolean isBowlFinish();
@@ -13,6 +13,7 @@ public interface KnockedPinCounts {
 
     boolean isSpare();
 
+    @ForUI
     boolean isFinal();
 
     boolean isFirstEnd();
@@ -21,7 +22,9 @@ public interface KnockedPinCounts {
 
     boolean isBonusEnd();
 
+    @ForUI
     int getFirst();
 
+    @ForUI
     List<KnockedPinCount> getValues();
 }

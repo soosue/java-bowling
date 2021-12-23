@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractKnockedPinCounts implements KnockedPinCounts{
-    public static final String WRONG_BOWL_COUNT_MESSAGE = "잘못된 투구수입니다.";
+    public static final String WRONG_BOWL_COUNT_MESSAGE = "잘못된 투구 수입니다.";
 
     protected static final int ZERO = 0;
     protected static final int ONE = 1;
@@ -31,7 +31,7 @@ public abstract class AbstractKnockedPinCounts implements KnockedPinCounts{
 
     @Override
     public boolean isStrike() {
-        return isFirstEnd() && values.get(INDEX_ZERO).equals(KnockedPinCount.STRIKE_COUNT);
+        return isFirstEnd() && values.get(ZERO).equals(KnockedPinCount.STRIKE_COUNT);
     }
 
     @Override
@@ -51,7 +51,7 @@ public abstract class AbstractKnockedPinCounts implements KnockedPinCounts{
 
     @Override
     public int getFirst() {
-        return values.get(KnockedPinCounts.INDEX_ZERO).value();
+        return values.get(ZERO).value();
     }
 
     @Override
