@@ -1,14 +1,14 @@
 package bowl2.domain;
 
-public class NormalFrame implements Frame {
+public class NormalFrame extends AbstractFrame {
     private final FrameRoundNumber roundNumber;
-    private final KnockedPinCounts knockedPinCounts = new NormalKnockedPinCounts();
 
     private NormalFrame(int number) {
         this(new FrameRoundNumber(number));
     }
 
     private NormalFrame(FrameRoundNumber roundNumber) {
+        super(new NormalKnockedPinCounts());
         this.roundNumber = roundNumber;
     }
 
@@ -30,16 +30,6 @@ public class NormalFrame implements Frame {
     }
 
     @Override
-    public void bowl(int knockedOutCount) {
-        knockedPinCounts.knockOut(knockedOutCount);
-    }
-
-    @Override
-    public boolean isEnd() {
-        return knockedPinCounts.isBowlFinish();
-    }
-
-    @Override
     public boolean isBeforeFinalFrame() {
         return roundNumber.equals(FrameRoundNumber.BEFORE_FINAL_FRAME_NUMBER);
     }
@@ -47,10 +37,5 @@ public class NormalFrame implements Frame {
     @Override
     public boolean isFinalFrame() {
         return false;
-    }
-
-    @Override
-    public KnockedPinCounts getKnockedPinCounts() {
-        return knockedPinCounts;
     }
 }

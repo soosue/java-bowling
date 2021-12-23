@@ -1,10 +1,7 @@
 package bowl2.view;
 
 import bowl2.domain.*;
-import bowling.domain.Pin;
-import bowling.domain.State;
 
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -29,7 +26,8 @@ public class OutputView {
 
     public static void printBowlingBoard(Players players) {
         System.out.println(MAIN_BOARD_HEAD_MESSAGE);
-        players.value().forEach(OutputView::printMainBoardBody);
+        players.value()
+                .forEach(OutputView::printMainBoardBody);
         System.out.println();
     }
 
@@ -59,29 +57,20 @@ public class OutputView {
 
     private static String makeScoreMark(KnockedPinCounts knockedPinCounts) {
         if (knockedPinCounts.isFinal()) {
-            return makeFinalScoreMark(knockedPinCounts);
+            return joiningMark(knockedPinCounts);
         }
         return makeNormalScoreMark(knockedPinCounts);
     }
 
     private static String makeNormalScoreMark(KnockedPinCounts knockedPinCounts) {
-        if (knockedPinCounts.isFirstEnd()) {
-            return toMark(knockedPinCounts.getFirst());
-        }
-
         if (knockedPinCounts.isSpare()) {
             return toMark(knockedPinCounts.getFirst()) + SEPARATOR + SPARE_MARK;
         }
-
-        if (knockedPinCounts.isSecondEnd()) {
-            return toMark(knockedPinCounts.getFirst()) + SEPARATOR + toMark(knockedPinCounts.getSecond());
-        }
-        throw new IllegalArgumentException(CAN_NOT_MAKE_MARK_MESSAGE);
+        return joiningMark(knockedPinCounts);
     }
 
-    private static String makeFinalScoreMark(KnockedPinCounts knockedPinCounts) {
-        FinalKnockedPinCounts finalKnockedPinCounts = (FinalKnockedPinCounts) knockedPinCounts;
-        return finalKnockedPinCounts.values().stream()
+    private static String joiningMark(KnockedPinCounts knockedPinCounts) {
+        return knockedPinCounts.getValues().stream()
                 .map(knockedPinCount -> toMark(knockedPinCount.value()))
                 .collect(Collectors.joining(SEPARATOR));
     }

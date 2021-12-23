@@ -1,9 +1,9 @@
 package bowl2.domain;
 
+import java.util.List;
+
 public interface KnockedPinCounts {
     int INDEX_ZERO = 0;
-    int INDEX_ONE = 1;
-    int INDEX_TWO = 2;
 
     void knockOut(int knockedOutCount);
 
@@ -23,7 +23,5 @@ public interface KnockedPinCounts {
 
     int getFirst();
 
-    int getSecond();
-
-    int getThird();
+    List<KnockedPinCount> getValues();
 }

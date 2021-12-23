@@ -1,6 +1,7 @@
 package bowl2.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NormalKnockedPinCounts implements KnockedPinCounts {
@@ -77,12 +78,7 @@ public class NormalKnockedPinCounts implements KnockedPinCounts {
     }
 
     @Override
-    public int getSecond() {
-        return values.get(KnockedPinCounts.INDEX_ONE).value();
-    }
-
-    @Override
-    public int getThird() {
-        throw new IllegalArgumentException("일반 프레임은 세번째 점수가 없습니다.");
+    public List<KnockedPinCount> getValues() {
+        return Collections.unmodifiableList(values);
     }
 }

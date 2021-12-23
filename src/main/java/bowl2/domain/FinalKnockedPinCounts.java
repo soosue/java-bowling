@@ -36,7 +36,7 @@ public class FinalKnockedPinCounts implements KnockedPinCounts {
 
     @Override
     public void knockOut(int knockedOutCount) {
-        if (isFirstEnd()) {
+        if (isFirstEnd() && !isStrike()) {
             checkValidKnockedPinCounts(knockedOutCount);
             values.add(new KnockedPinCount(knockedOutCount));
             return;
@@ -91,16 +91,7 @@ public class FinalKnockedPinCounts implements KnockedPinCounts {
     }
 
     @Override
-    public int getSecond() {
-        return values.get(KnockedPinCounts.INDEX_ONE).value();
-    }
-
-    @Override
-    public int getThird() {
-        return values.get(KnockedPinCounts.INDEX_TWO).value();
-    }
-
-    public List<KnockedPinCount> values() {
+    public List<KnockedPinCount> getValues() {
         return Collections.unmodifiableList(values);
     }
 }
