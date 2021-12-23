@@ -11,8 +11,8 @@ public class Frames {
         values = new ArrayList<>();
     }
 
-    public boolean isNotEnd() {
-        return true;
+    public boolean isEnd() {
+        return !values.isEmpty() && findCurrentFrame().isFinalFrame() && findCurrentFrame().isEnd();
     }
 
     public void bowl(int knockedOutCount) {

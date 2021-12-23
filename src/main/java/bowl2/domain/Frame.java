@@ -9,5 +9,7 @@ public interface Frame {
 
     boolean isBeforeFinalFrame();
 
+    boolean isFinalFrame();
+
     KnockedPinCounts getKnockedPinCounts();
 }

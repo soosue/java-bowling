@@ -11,7 +11,7 @@ public class Player {
     }
 
     public boolean isEndGame() {
-        return !frames.isNotEnd();
+        return frames.isEnd();
     }
 
     public void prepareFrame() {

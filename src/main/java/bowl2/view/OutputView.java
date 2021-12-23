@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class OutputView {
+    public static final String CAN_NOT_MAKE_MARK_MESSAGE = "mark를 못 만들었습니다.";
+
     private static final String MAIN_BOARD_HEAD_MESSAGE = "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |";
     private static final String MAIN_BOARD_EMPTY_MESSAGE = "|      |      |      |      |      |      |      |      |      |      |      |";
     private static final String SCORE_BOARD_NAME_TEMPLATE = "|  %-4s|";
@@ -63,38 +65,31 @@ public class OutputView {
     }
 
     private static String makeNormalScoreMark(KnockedPinCounts knockedPinCounts) {
-        if (knockedPinCounts.isStrike()) {
-            return STRIKE_MARK;
-        }
-
-        if (knockedPinCounts.isSpare()) {
-            // 첫번째 쓰러뜨린 핀 개수 가져오기
-            return toMark(knockedPinCounts.getFirst()) + SEPARATOR + SPARE_MARK;
-        }
-
         if (knockedPinCounts.isFirstEnd()) {
-            // 첫번째 쓰러뜨린 핀 개수만 표시
             return toMark(knockedPinCounts.getFirst());
         }
 
+        if (knockedPinCounts.isSpare()) {
+            return toMark(knockedPinCounts.getFirst()) + SEPARATOR + SPARE_MARK;
+        }
+
         if (knockedPinCounts.isSecondEnd()) {
-            // 첫번째 | 두번째 쓰러뜨린 핀 개수로 표시
             return toMark(knockedPinCounts.getFirst()) + SEPARATOR + toMark(knockedPinCounts.getSecond());
         }
-        throw new IllegalArgumentException("mark를 못만들었습니다.");
+        throw new IllegalArgumentException(CAN_NOT_MAKE_MARK_MESSAGE);
     }
 
     private static String makeFinalScoreMark(KnockedPinCounts knockedPinCounts) {
-
-
-        if (knockedPinCounts.isBonusEnd()) {
-            // 첫번째 | 두번째 | 세번째 쓰러뜨린 핀 개수로 표시
-            return toMark(knockedPinCounts.getFirst()) + SEPARATOR + toMark(knockedPinCounts.getSecond()) + SEPARATOR + toMark(knockedPinCounts.getThird());
-        }
-        return null;
+        FinalKnockedPinCounts finalKnockedPinCounts = (FinalKnockedPinCounts) knockedPinCounts;
+        return finalKnockedPinCounts.values().stream()
+                .map(knockedPinCount -> toMark(knockedPinCount.value()))
+                .collect(Collectors.joining(SEPARATOR));
     }
 
     private static String toMark(int knockOutCount) {
+        if (knockOutCount == 10) {
+            return STRIKE_MARK;
+        }
         if (knockOutCount == 0) {
             return GUTTER_MARK;
         }

@@ -20,26 +20,36 @@ public class NormalFrame implements Frame {
         return frame.next();
     }
 
-    public Frame next() {
-        return new NormalFrame(roundNumber.next());
-    }
-
     public static Frame ofFinal() {
         return new FinalFrame();
     }
 
+    @Override
+    public Frame next() {
+        return new NormalFrame(roundNumber.next());
+    }
+
+    @Override
     public void bowl(int knockedOutCount) {
         knockedPinCounts.knockOut(knockedOutCount);
     }
 
+    @Override
     public boolean isEnd() {
         return knockedPinCounts.isBowlFinish();
     }
 
+    @Override
     public boolean isBeforeFinalFrame() {
         return roundNumber.equals(FrameRoundNumber.BEFORE_FINAL_FRAME_NUMBER);
     }
 
+    @Override
+    public boolean isFinalFrame() {
+        return false;
+    }
+
+    @Override
     public KnockedPinCounts getKnockedPinCounts() {
         return knockedPinCounts;
     }

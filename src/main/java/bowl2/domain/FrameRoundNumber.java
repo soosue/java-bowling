@@ -17,4 +17,23 @@ public class FrameRoundNumber {
     public FrameRoundNumber next() {
         return new FrameRoundNumber(roundNumber + 1);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        FrameRoundNumber that = (FrameRoundNumber) o;
+
+        return roundNumber == that.roundNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return roundNumber;
+    }
 }

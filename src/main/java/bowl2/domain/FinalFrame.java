@@ -11,17 +11,22 @@ public class FinalFrame implements Frame {
 
     @Override
     public void bowl(int knockedOutCount) {
-
+        knockedPinCounts.knockOut(knockedOutCount);
     }
 
     @Override
     public boolean isEnd() {
-        return false;
+        return knockedPinCounts.isBowlFinish();
     }
 
     @Override
     public boolean isBeforeFinalFrame() {
         return false;
+    }
+
+    @Override
+    public boolean isFinalFrame() {
+        return true;
     }
 
     @Override

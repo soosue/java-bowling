@@ -1,9 +1,9 @@
 package bowl2.domain;
 
 public interface KnockedPinCounts {
-    int FIRST = 0;
-    int SECOND = 1;
-    int THIRD = 2;
+    int INDEX_ZERO = 0;
+    int INDEX_ONE = 1;
+    int INDEX_TWO = 2;
 
     void knockOut(int knockedOutCount);
 

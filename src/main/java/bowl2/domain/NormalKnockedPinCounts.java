@@ -73,12 +73,12 @@ public class NormalKnockedPinCounts implements KnockedPinCounts {
 
     @Override
     public int getFirst() {
-        return values.get(KnockedPinCounts.FIRST).value();
+        return values.get(KnockedPinCounts.INDEX_ZERO).value();
     }
 
     @Override
     public int getSecond() {
-        return values.get(KnockedPinCounts.SECOND).value();
+        return values.get(KnockedPinCounts.INDEX_ONE).value();
     }
 
     @Override

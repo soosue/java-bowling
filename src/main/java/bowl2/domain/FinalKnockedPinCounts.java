@@ -1,12 +1,15 @@
 package bowl2.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FinalKnockedPinCounts implements KnockedPinCounts {
     public static final String WRONG_BOWL_COUNT_MESSAGE = "잘못된 투구수입니다.";
 
-    private static final int DEFAULT_SIZE = 2;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
     private static final int MAX_SIZE = 3;
 
     private final List<KnockedPinCount> values;
@@ -33,23 +36,33 @@ public class FinalKnockedPinCounts implements KnockedPinCounts {
 
     @Override
     public void knockOut(int knockedOutCount) {
-        checkValidKnockedPinCounts(knockedOutCount);
+        if (isFirstEnd()) {
+            checkValidKnockedPinCounts(knockedOutCount);
+            values.add(new KnockedPinCount(knockedOutCount));
+            return;
+        }
         values.add(new KnockedPinCount(knockedOutCount));
     }
 
     @Override
     public boolean isBowlFinish() {
-        return isSecondEnd() || isStrike();
+        return isBonusEnd() || (!isDouble() && !isSpare() && isSecondEnd());
     }
 
     @Override
     public boolean isStrike() {
-        return values.size() == 1 && values.get(0).equals(KnockedPinCount.STRIKE_COUNT);
+        return isFirstEnd() && values.get(INDEX_ZERO).equals(KnockedPinCount.STRIKE_COUNT);
+    }
+
+    private boolean isDouble() {
+        return values.stream()
+                .filter(KnockedPinCount.STRIKE_COUNT::equals)
+                .count() == TWO;
     }
 
     @Override
     public boolean isSpare() {
-        return isSecondEnd() && sum(0).equals(KnockedPinCount.STRIKE_COUNT);
+        return isSecondEnd() && sum(ZERO).equals(KnockedPinCount.STRIKE_COUNT);
     }
 
     @Override
@@ -59,12 +72,12 @@ public class FinalKnockedPinCounts implements KnockedPinCounts {
 
     @Override
     public boolean isFirstEnd() {
-        return values.size() == 1;
+        return values.size() == ONE;
     }
 
     @Override
     public boolean isSecondEnd() {
-        return values.size() == DEFAULT_SIZE;
+        return values.size() == TWO;
     }
 
     @Override
@@ -74,16 +87,20 @@ public class FinalKnockedPinCounts implements KnockedPinCounts {
 
     @Override
     public int getFirst() {
-        return values.get(KnockedPinCounts.FIRST).value();
+        return values.get(KnockedPinCounts.INDEX_ZERO).value();
     }
 
     @Override
     public int getSecond() {
-        return values.get(KnockedPinCounts.SECOND).value();
+        return values.get(KnockedPinCounts.INDEX_ONE).value();
     }
 
     @Override
     public int getThird() {
-        return values.get(KnockedPinCounts.THIRD).value();
+        return values.get(KnockedPinCounts.INDEX_TWO).value();
+    }
+
+    public List<KnockedPinCount> values() {
+        return Collections.unmodifiableList(values);
     }
 }
