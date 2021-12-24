@@ -16,18 +16,18 @@ public class FinalKnockedPinCounts extends AbstractKnockedPinCounts {
 
     @Override
     public void knockOut(int knockedOutCount) {
+        if (isStrike() || isDouble() || isSpare()) {
+            values.add(new KnockedPinCount(knockedOutCount));
+            return;
+        }
+
         if (isFirstBowl()) {
             values.add(new KnockedPinCount(knockedOutCount));
             return;
         }
 
-        if (isFirstEnd() && !isStrike()) {
+        if (isFirstEnd() && !isSecondEnd()) {
             checkValidKnockedPinCounts(knockedOutCount);
-            values.add(new KnockedPinCount(knockedOutCount));
-            return;
-        }
-
-        if (isStrike() || isDouble() || (isSecondEnd() && isSpare())) {
             values.add(new KnockedPinCount(knockedOutCount));
             return;
         }
@@ -52,6 +52,11 @@ public class FinalKnockedPinCounts extends AbstractKnockedPinCounts {
     @Override
     public boolean isFinal() {
         return true;
+    }
+
+    @Override
+    public int getThird() {
+        return values.get(TWO).value();
     }
 
     @Override

@@ -76,7 +76,6 @@ public class FinalKnockedPinCountsTest {
         finalKnockedPinCounts.knockOut(9);
         finalKnockedPinCounts.knockOut(1);
         assertThat(finalKnockedPinCounts.isSecondEnd()).isTrue();
-        assertThat(finalKnockedPinCounts.isFirstEnd()).isFalse();
     }
 
     @Test

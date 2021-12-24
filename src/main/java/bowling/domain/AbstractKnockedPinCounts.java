@@ -2,6 +2,7 @@ package bowling.domain;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public abstract class AbstractKnockedPinCounts implements KnockedPinCounts {
     public static final String WRONG_BOWL_COUNT_MESSAGE = "잘못된 투구 수입니다.";
@@ -21,12 +22,10 @@ public abstract class AbstractKnockedPinCounts implements KnockedPinCounts {
     }
 
     protected void checkValidKnockedPinCounts(int count) {
-        sum(count);
-    }
-
-    private KnockedPinCount sum(int count) {
-        return values.stream()
-                .reduce(new KnockedPinCount(count), (previous, current) -> previous.sum(current));
+        if (values.isEmpty()) {
+            return;
+        }
+        values.get(ZERO).sum(new KnockedPinCount(count));
     }
 
     @Override
@@ -36,22 +35,27 @@ public abstract class AbstractKnockedPinCounts implements KnockedPinCounts {
 
     @Override
     public boolean isSpare() {
-        return isSecondEnd() && sum(ZERO).equals(KnockedPinCount.STRIKE_COUNT);
+        return isSecondEnd() && values.get(ZERO).sum(values.get(ONE)).equals(KnockedPinCount.STRIKE_COUNT);
     }
 
     @Override
     public boolean isFirstEnd() {
-        return values.size() == ONE;
+        return values.size() >= ONE;
     }
 
     @Override
     public boolean isSecondEnd() {
-        return values.size() == TWO;
+        return values.size() >= TWO;
     }
 
     @Override
     public int getFirst() {
         return values.get(ZERO).value();
+    }
+
+    @Override
+    public int getSecond() {
+        return values.get(ONE).value();
     }
 
     @Override

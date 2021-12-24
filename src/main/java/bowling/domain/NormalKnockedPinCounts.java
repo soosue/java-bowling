@@ -36,6 +36,11 @@ public class NormalKnockedPinCounts extends AbstractKnockedPinCounts {
     }
 
     @Override
+    public int getThird() {
+        return 0;
+    }
+
+    @Override
     public boolean isBonusEnd() {
         throw new IllegalArgumentException(NO_BONUS_MESSAGE);
     }

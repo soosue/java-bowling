@@ -26,4 +26,17 @@ public class FinalFrame extends AbstractFrame {
     public Frame next() {
         return null;
     }
+
+    @Override
+    public String getScore() {
+        if ((knockedPinCounts.isStrike() || knockedPinCounts.isSpare()) && knockedPinCounts.isBonusEnd()) {
+            return String.valueOf(knockedPinCounts.getFirst() + knockedPinCounts.getSecond() + knockedPinCounts.getThird());
+        }
+
+        if (!knockedPinCounts.isStrike() && !knockedPinCounts.isSpare() && knockedPinCounts.isSecondEnd()) {
+            return String.valueOf(knockedPinCounts.getFirst() + knockedPinCounts.getSecond());
+        }
+
+        return "";
+    }
 }

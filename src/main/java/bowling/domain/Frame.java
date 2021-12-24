@@ -16,6 +16,8 @@ public interface Frame {
 
     Frame next();
 
+    String getScore();
+
     @ForUI
     KnockedPinCounts getKnockedPinCounts();
 }

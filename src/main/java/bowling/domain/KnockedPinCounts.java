@@ -18,6 +18,10 @@ public interface KnockedPinCounts {
 
     boolean isFirstEnd();
 
+    int getSecond();
+
+    int getThird();
+
     boolean isSecondEnd();
 
     boolean isBonusEnd();

@@ -90,7 +90,32 @@ public class OutputView {
     }
 
     private static void printScore(Player player) {
-        System.out.println(MAIN_BOARD_EMPTY_MESSAGE);
+        clearStringBuilder();
+        sb.append(String.format(SCORE_BOARD_EMPTY_TEMPLATE));
+        int prevScore = 0;
+        for (int index = ZERO; index < TEN; index++) {
+            String score = score(index, player);
+            prevScore = makeScore(prevScore, score);
+        }
+        System.out.println(sb);
+    }
+
+    private static String score(int index, Player player) {
+        if (index < player.frames().size()) {
+            Frame frame = player.frames().get(index);
+            return frame.getScore();
+        }
+        return EMPTY;
+    }
+
+    private static int makeScore(int prevScore, String score) {
+        if (!score.isEmpty()) {
+            prevScore += Integer.parseInt(score);
+            sb.append(String.format(SCORE_BOARD_SCORE_TEMPLATE, prevScore));
+            return prevScore;
+        }
+        sb.append(String.format(SCORE_BOARD_MARK_TEMPLATE, score));
+        return prevScore;
     }
 
     private static void clearStringBuilder() {

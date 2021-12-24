@@ -76,7 +76,6 @@ public class NormalKnockedPinCountsTest {
         normalKnockedPinCounts.knockOut(9);
         normalKnockedPinCounts.knockOut(1);
         assertThat(normalKnockedPinCounts.isSecondEnd()).isTrue();
-        assertThat(normalKnockedPinCounts.isFirstEnd()).isFalse();
     }
 
     @Test
