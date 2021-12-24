@@ -9,7 +9,9 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        Players players = new Players(Arrays.asList(InputView.readPlayerName()));
+//        Players players = new Players(Arrays.asList(InputView.readPlayerName()));
+        int playersCount = InputView.readPlayersCount();
+        Players players = new Players(InputView.readPlayersName(playersCount));
         OutputView.printBowlingBoard(players);
 
         while (!players.isEndGame()) {
